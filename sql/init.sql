@@ -1,3 +1,5 @@
+CREATE DATABASE todo WITH OWNER = postgres;
+\c todo;
 CREATE TABLE todos
 (
     id CHAR(36) NOT NULL,

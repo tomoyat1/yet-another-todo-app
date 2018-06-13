@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 
 	todo "github.com/tomoyat1/yet-another-todo-app"
-	"github.com/tomoyat1/yet-another-todo-app/postgres"
+	"fmt"
 )
 
 
@@ -24,9 +24,10 @@ type status struct {
 	Message string `json:"message"`
 }
 
-func NewServer() (s *Server, err error) {
+func NewServer(repo todo.ItemRepository) (s *Server, err error) {
 	s = &Server{
 		router: mux.NewRouter(),
+		todoItemRepo: repo,
 	}
 
 	/* Non-expensive initializations */
@@ -35,18 +36,14 @@ func NewServer() (s *Server, err error) {
 	if err != nil {
 		return nil, err
 	}
-	s.todoItemRepo, err = postgres.NewPgItemRepositoryImpl("postgresql://postgres:passwd@127.0.0.1:5432/todo")
-	if err != nil {
-		return nil, err
-	}
 	return
 }
 
-func (s *Server) Start() error {
+func (s *Server) Start(port uint16) error {
 	h := http.NewServeMux()
 	h.Handle("/", s.router)
 	/* TODO: Read port from env */
-	return http.ListenAndServe(":8080", h)
+	return http.ListenAndServe(fmt.Sprintf(":%d", port), h)
 }
 
 func (s *Server) routes() {

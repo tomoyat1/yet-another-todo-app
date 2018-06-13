@@ -27,6 +27,12 @@
   version = "v3.1.0"
 
 [[projects]]
+  name = "github.com/kelseyhightower/envconfig"
+  packages = ["."]
+  revision = "f611eb38b3875cc3bd991ca91c51d06446afa14c"
+  version = "v1.3.0"
+
+[[projects]]
   name = "github.com/pkg/errors"
   packages = ["."]
   revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
@@ -66,6 +72,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1a7573ec623586fa90f0a439952c516dbf6ca40015fd5990b5f1e77530fd7909"
+  inputs-digest = "445c1c0ebbca5fbcc1dfd2d436c32a9215bfcc19e2008ef00535307122aa5678"
   solver-name = "gps-cdcl"
   solver-version = 1
