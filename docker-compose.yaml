@@ -1,6 +1,6 @@
 version: "3"
 services:
-  postgres:
+  pg:
     image: postgres:10.3
     ports:
       - "5432:5432"
@@ -8,11 +8,25 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d
     networks:
-      - postgres
+      - todo
     environment:
       - POSTGRES_PASSWORD=passwd
+  todo-server:
+    image: tomoyat1/yet-another-todo-app:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - TODO_DB_USER=postgres
+      - TODO_DB_PASSWD=passwd
+      - TODO_DB_HOST=pg
+      - TODO_DB_PORT=5432
+      - TODO_DB_NAME=todo
+    networks:
+      - todo
+    depends_on:
+      - pg
 volumes:
   postgres-data:
 networks:
-  postgres:
+  todo:
     driver: bridge

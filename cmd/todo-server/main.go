@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/tomoyat1/yet-another-todo-app/server"
-	"github.com/tomoyat1/yet-another-todo-app/postgres"
 	"github.com/tomoyat1/yet-another-todo-app/config"
+	"github.com/tomoyat1/yet-another-todo-app/postgres"
+	"github.com/tomoyat1/yet-another-todo-app/server"
 )
 
 const (
@@ -17,11 +17,7 @@ var (
 func init() {
 	var err error
 	dbConf, err = config.DBConfigFromEnv()
-	if err!= nil {
-		panic("Couldn't read DB config from environment: " + err.Error())
-	}
-
-	if err!= nil {
+	if err != nil {
 		panic("Couldn't read DB config from environment: " + err.Error())
 	}
 }
