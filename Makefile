@@ -13,3 +13,8 @@ dep-ensure:
 
 install: dep-ensure
 	go install ${PKG}/cmd/todo-server
+
+.PHONY: docker
+docker:
+	docker build -t tomoyat1/yet-another-todo-app:latest ./
+	docker push tomoyat1/yet-another-todo-app:latest
