@@ -1,7 +1,7 @@
 version: "3"
 services:
   pg:
-    image: postgres:10.3
+    image: postgres:10.4
     ports:
       - "5432:5432"
     volumes:
@@ -11,7 +11,7 @@ services:
       - todo
     environment:
       - POSTGRES_PASSWORD=passwd
-  todo-server:
+  todo:
     image: tomoyat1/yet-another-todo-app:latest
     ports:
       - "8080:8080"
@@ -25,6 +25,16 @@ services:
       - todo
     depends_on:
       - pg
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - todo
+    depends_on:
+      - todo
 volumes:
   postgres-data:
 networks:
